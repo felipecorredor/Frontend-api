@@ -1,24 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Auth } from "./components/Auth";
+import { Categories } from "./components/Categories";
+import { DetailCategory } from "./components/DetailCategory";
+import { ListOfCategories } from "./components/ListOfCategories";
+import { Skip } from "./components/Skip";
+import { PrivateRoute } from "./PrivateRoute";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Auth} />
+        <PrivateRoute type="private" exact path="/categories" component={Categories} />
+        <PrivateRoute type="private" exact path="/ListOfCategories" component={ListOfCategories} />
+        <PrivateRoute type="private" exact path="/skip" component={Skip} />
+        <Route exact path="/category/:categoryId" component={DetailCategory} />
+      </Switch>
+    </Router>
   );
 }
 
